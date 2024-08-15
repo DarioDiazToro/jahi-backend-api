@@ -6,10 +6,12 @@ import bcryptjs from "bcryptjs";
 
 
 export const loginService = async (datos: any) => {
-    let { password, email } = datos;
 
     try {
+        const { password, email } = datos;
         const usuario = await UsuariosEntity.findOne({ where: { email: email } });
+
+        console.log("user by email=====>", usuario);
         if (!usuario) {
             return {
                 code: 422,

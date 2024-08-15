@@ -17,16 +17,16 @@ router.post("/register",
     ],
     crearUsuario);
 
-// router.put("/:id", [
-//     joiValidateMiddleware(schemaActualizarUsuario)
-// ], actualizarUsuarioById);
+router.put("/:id", [
+    joiValidateMiddleware(schemaActualizarUsuario)
+], actualizarUsuarioById);
 
 // router.put("/actualizar-password/:email", [joiValidateMiddleware(schemaActualizarPasswordUsuario)], actualizarPassword);
 
-// router.get("/:id", [], obtenerUsuarioById);
-// router.get("/", [], obtenerUsuarios);
+router.get("/:id", [], obtenerUsuarioById);
+router.get("/", [], obtenerUsuarios);
 
 
-// router.delete("/:id", [validarJWT], eliminarUsuarioById);
+router.delete("/:id", [], eliminarUsuarioById);
 
 export default router;

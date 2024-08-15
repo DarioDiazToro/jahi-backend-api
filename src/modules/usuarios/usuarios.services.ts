@@ -26,9 +26,10 @@ export const crearUsuarioService = async (datos: any): Promise<IRespuestaFuncion
     }
 };
 
-export const actualizarUsuarioByIdService = async (id: any, datos: any) => {
+export const actualizarUsuarioByIdService = async (id: any, datos: any): Promise<IRespuestaFuncion> => {
 
     try {
+        const { activo, ...data } = datos;
         const usuario = await UsuariosEntity.findBy({ id });
 
 
@@ -38,7 +39,7 @@ export const actualizarUsuarioByIdService = async (id: any, datos: any) => {
 
         };
 
-        await UsuariosEntity.update(id, datos);
+        await UsuariosEntity.update(id, data);
 
         const usuarioActualizado = await UsuariosEntity.findOne({ where: { id } });
 
@@ -55,7 +56,7 @@ export const actualizarUsuarioByIdService = async (id: any, datos: any) => {
 
 };
 
-export const obtenerUsuarioByIdService = async (id: any) => {
+export const obtenerUsuarioByIdService = async (id: any): Promise<IRespuestaFuncion> => {
 
     try {
         const usuario = await UsuariosEntity.findBy({ id });
@@ -76,7 +77,7 @@ export const obtenerUsuarioByIdService = async (id: any) => {
 };
 
 
-export const obtenerUsuariosService = async () => {
+export const obtenerUsuariosService = async (): Promise<IRespuestaFuncion> => {
 
     try {
         const usuarios = await UsuariosEntity.findBy({ activo: true });

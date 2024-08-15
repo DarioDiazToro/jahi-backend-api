@@ -24,7 +24,8 @@ export const actualizarUsuarioById = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
-        const { estado, password, ...data } = req.body
+        const { activo, password, ...data } = req.body
+
 
         const answer = await actualizarUsuarioByIdService(id, data);
         return respuesta(res, answer.code, true, answer.message, answer.data);
@@ -40,6 +41,7 @@ export const obtenerUsuarioById = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
+
         const answer = await obtenerUsuarioByIdService(id);
         return respuesta(res, answer.code, true, answer.message, answer.data);
 
@@ -53,8 +55,7 @@ export const obtenerUsuarioById = async (req: Request, res: Response) => {
 export const obtenerUsuarios = async (req: Request, res: Response) => {
     try {
         const answer = await obtenerUsuariosService();
-        return respuesta(res, answer.code, answer.success, answer.message, answer.data);
-
+        return respuesta(res, answer.code, answer.success, answer.message, answer.data, answer.informacionAdicional);
     } catch (error: any) {
         console.error("Error obtenerUsuariosController====>", error, error.message);
         return respuesta(res, 422, false, `Error inesperado ${error.message}`, null);
