@@ -15,7 +15,7 @@ export interface IRespuestaFuncion {
     code: number,
     message: string,
     data: any,
-    [key: string]: any;
+    informacionAdicional?: any
 };
 
 export const getRespuestaCommon = (success: boolean, code: number, message: string = "", data: any = null, additionalInfo: object = {}): IRespuestaFuncion => {
@@ -25,6 +25,6 @@ export const getRespuestaCommon = (success: boolean, code: number, message: stri
         code,
         message,
         data,
-        ...additionalInfo
+        informacionAdicional: additionalInfo,
     };
 };

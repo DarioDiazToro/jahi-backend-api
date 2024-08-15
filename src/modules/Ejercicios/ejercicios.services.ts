@@ -2,7 +2,7 @@ import { IRespuestaFuncion, getRespuestaCommon } from "../../common/response.com
 import { UsuariosEntity } from "../../models/usuario";
 import bcryptjs from "bcryptjs";
 
-export const crearUsuarioService = async (datos: any): Promise<IRespuestaFuncion> => {
+export const crearEjercicioService = async (datos: any): Promise<IRespuestaFuncion> => {
     try {
         const { password, email } = datos;
 
@@ -26,7 +26,7 @@ export const crearUsuarioService = async (datos: any): Promise<IRespuestaFuncion
     }
 };
 
-export const actualizarUsuarioByIdService = async (id: any, datos: any) => {
+export const actualizarEjercicioByIdService = async (id: any, datos: any) => {
 
     try {
         const usuario = await UsuariosEntity.findBy({ id });
@@ -55,7 +55,7 @@ export const actualizarUsuarioByIdService = async (id: any, datos: any) => {
 
 };
 
-export const obtenerUsuarioByIdService = async (id: any) => {
+export const obtenerEjercicioByIdService = async (id: any) => {
 
     try {
         const usuario = await UsuariosEntity.findBy({ id });
@@ -76,7 +76,7 @@ export const obtenerUsuarioByIdService = async (id: any) => {
 };
 
 
-export const obtenerUsuariosService = async () => {
+export const obtenerEjerciciosService = async () => {
 
     try {
         const usuarios = await UsuariosEntity.findBy({ activo: true });
@@ -95,7 +95,7 @@ export const obtenerUsuariosService = async () => {
 };
 
 
-export const deleteUsuarioByIdService = async (id: any): Promise<IRespuestaFuncion> => {
+export const deleteEjercicioByIdService = async (id: any): Promise<IRespuestaFuncion> => {
 
     try {
         const item = await UsuariosEntity.findBy({ id });
@@ -121,37 +121,3 @@ export const deleteUsuarioByIdService = async (id: any): Promise<IRespuestaFunci
 
     };
 }
-
-
-
-export const actualizarPasswordUsuarioService = async (email: string, password: string): Promise<IRespuestaFuncion> => {
-
-
-    try {
-        const [usuario] = await UsuariosEntity.findBy({ email: email });
-
-        if (!usuario) {
-            return getRespuestaCommon(false, 422, `El usuario con documento ${email} no existe en la base de datos`);
-
-        };
-
-        const salt = bcryptjs.genSaltSync();
-
-        const nuevaPassword = bcryptjs.hashSync(password, salt);
-
-        const actualizado = await UsuariosEntity.update({ email: email }, { password: nuevaPassword })
-
-        if (!actualizado) {
-            return getRespuestaCommon(false, 422, "No se logro actualizar la contraseña");
-        };
-
-        return getRespuestaCommon(true, 200, "Contraseña actualizada");
-
-    } catch (error: any) {
-        console.error("Error actualizarPasswordUsuarioSerivice ====>", error, error.message);
-
-        return getRespuestaCommon(true, 422, "No se logro actualizar la contraseña", null, { detailError: error.message });
-
-    }
-
-};

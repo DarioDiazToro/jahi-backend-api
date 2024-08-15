@@ -1,13 +1,13 @@
 
 import { Request, Response, } from "express";
-import { actualizarPasswordUsuarioService, actualizarUsuarioByIdService, crearUsuarioService, deleteUsuarioByIdService, obtenerUsuarioByIdService, obtenerUsuariosService } from "./usuarios.services";
 import { respuesta } from "../../common/response.common";
+import { actualizarEjercicioByIdService, crearEjercicioService, deleteEjercicioByIdService, obtenerEjercicioByIdService, obtenerEjerciciosService } from "./ejercicios.services";
 
 
-export const crearUsuario = async (req: Request, res: Response) => {
+export const crearEjercicio = async (req: Request, res: Response) => {
     try {
         const { ...datos } = req.body;
-        const usuarioService = await crearUsuarioService(datos);
+        const usuarioService = await crearEjercicioService(datos);
 
         return respuesta(res, usuarioService.code, true, usuarioService.message, usuarioService.data);
 
@@ -20,13 +20,13 @@ export const crearUsuario = async (req: Request, res: Response) => {
 
 
 
-export const actualizarUsuarioById = async (req: Request, res: Response) => {
+export const actualizarEjercicioById = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
         const { estado, password, ...data } = req.body
 
-        const answer = await actualizarUsuarioByIdService(id, data);
+        const answer = await actualizarEjercicioByIdService(id, data);
         return respuesta(res, answer.code, true, answer.message, answer.data);
 
     } catch (error: any) {
@@ -36,11 +36,11 @@ export const actualizarUsuarioById = async (req: Request, res: Response) => {
 };
 
 
-export const obtenerUsuarioById = async (req: Request, res: Response) => {
+export const obtenerEjercicioById = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
-        const answer = await obtenerUsuarioByIdService(id);
+        const answer = await obtenerEjercicioByIdService(id);
         return respuesta(res, answer.code, true, answer.message, answer.data);
 
     } catch (error: any) {
@@ -50,9 +50,9 @@ export const obtenerUsuarioById = async (req: Request, res: Response) => {
 
 };
 
-export const obtenerUsuarios = async (req: Request, res: Response) => {
+export const obtenerEjercicios = async (req: Request, res: Response) => {
     try {
-        const answer = await obtenerUsuariosService();
+        const answer = await obtenerEjerciciosService();
         return respuesta(res, answer.code, answer.success, answer.message, answer.data);
 
     } catch (error: any) {
@@ -62,12 +62,12 @@ export const obtenerUsuarios = async (req: Request, res: Response) => {
 
 };
 
-export const eliminarUsuarioById = async (req: Request, res: Response) => {
+export const eliminarEjercicioById = async (req: Request, res: Response) => {
 
     try {
         const { id } = req.params;
 
-        const answer = await deleteUsuarioByIdService(id);
+        const answer = await deleteEjercicioByIdService(id);
 
         return respuesta(res, answer.code, answer.success, answer.message, answer.data);
 
@@ -77,19 +77,3 @@ export const eliminarUsuarioById = async (req: Request, res: Response) => {
     };
 
 };
-
-
-export const actualizarPassword = async (req: Request, res: Response) => {
-
-    try {
-        const { documento } = req.params;
-        const { password } = req.body;
-
-        const answer = await actualizarPasswordUsuarioService(documento, password);
-        return respuesta(res, answer.code, answer.success, answer.message, answer.data);
-
-    } catch (error: any) {
-        return respuesta(res, 422, false, `Error inesperado ${error.message}`, null);
-    }
-};
-
