@@ -9,7 +9,7 @@ export class UsuariosEntity extends BaseEntity {
     @Column({ type: "varchar", length: 50 })
     nombres!: string;
 
-    @Column({ type: "varchar", length: 50 })
+    @Column({ type: "varchar", })
     password!: string;
 
     @Column({ type: "varchar", length: 50 })

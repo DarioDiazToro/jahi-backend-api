@@ -1,17 +1,18 @@
 import { IRespuestaFuncion, getRespuestaCommon } from "../../common/response.common";
 import { UsuariosEntity } from "../../models/usuario";
+
 import bcryptjs from "bcryptjs";
 
 export const crearUsuarioService = async (datos: any): Promise<IRespuestaFuncion> => {
     try {
-        const { password, email } = datos;
-
+        const { email } = datos;
         const userExistente = await UsuariosEntity.findOne({ where: { email } });
         if (userExistente) {
             return getRespuestaCommon(false, 422, `El correo ${email} ya existe en la base de datos`, null);
         }
+        const newUsuario = await UsuariosEntity.create(datos);
+        const { password } = newUsuario;
 
-        const newUsuario = UsuariosEntity.create(datos);
 
         const salt = bcryptjs.genSaltSync();
         newUsuario.password = bcryptjs.hashSync(password, salt);
