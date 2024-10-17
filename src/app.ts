@@ -1,5 +1,4 @@
-import session from "express-session";
-import cors from "cors";
+
 import "reflect-metadata";
 import express from "express";
 import misRutas from "./router";
@@ -41,19 +40,6 @@ export class Server {
         //TODO: IMPORTANTE PARA LEER DATA DESDE REQ.DATA COMO JSON
         this.app.use(express.json({ limit: '2000mb' }))
         this.app.use(morgan('dev'))
-        this.app.use(cors({
-            origin: process.env.URL_FRONTEND || 'http//localhost5173',
-            credentials: true
-        }));
-
-        this.app.use(session({
-            secret: process.env.SECRETSESSION || 'holadario',
-            proxy: process.env.NODE_ENV === 'production',
-            cookie: {
-                secure: true,
-                sameSite: 'none'
-            }
-        }))
 
     }
 

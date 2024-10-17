@@ -1,4 +1,4 @@
-import { generarJWT } from "../../helpers/generar-Jwt";
+import { generarJWT } from "../../helpers/generar-jwt"
 import { UsuariosEntity } from "../../models/usuario";
 import bcryptjs from "bcryptjs";
 
