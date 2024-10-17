@@ -5,6 +5,8 @@ import misRutas from "./router";
 import morgan from "morgan";
 import { AppDataSource } from "./config/data-source";
 
+// mysql://root:jWWDmECbwfmJUBKfcWFmwtSxsfyZpgsu@autorack.proxy.rlwy.net:13901/railway
+
 export class Server {
 
 
