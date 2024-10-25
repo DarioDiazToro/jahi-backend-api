@@ -5,6 +5,8 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.1.0",
+    "@types/nodemailer": "^6.4.16",
+    "@types/uuid": "^10.0.0",
     "rimraf": "^5.0.10",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
@@ -32,6 +34,7 @@
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
     "concat-map": "^0.0.1",
+    "cors": "^2.8.5",
     "create-require": "^1.1.1",
     "cross-spawn": "^7.0.3",
     "diff": "^4.0.2",
@@ -69,6 +72,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.0",
+    "nodemailer": "^6.9.15",
     "normalize-path": "^3.0.0",
     "once": "^1.4.0",
     "package-json-from-dist": "^1.0.0",
@@ -85,10 +89,7 @@
     "signal-exit": "^4.1.0",
     "source-map": "^0.6.1",
     "source-map-support": "^0.5.21",
-<<<<<<< HEAD
-=======
     "string-width": "^5.1.2",
->>>>>>> 3fd9116860f3a8a37fdf91d6509fdc1676a5d3b3
     "strip-ansi": "^7.1.0",
     "strip-bom": "^3.0.0",
     "strip-json-comments": "^2.0.1",
@@ -99,6 +100,7 @@
     "tsconfig": "^7.0.0",
     "typeorm": "^0.3.20",
     "undici-types": "^6.13.0",
+    "uuid": "^10.0.0",
     "v8-compile-cache-lib": "^3.0.1",
     "which": "^2.0.2",
     "wrap-ansi": "^8.1.0",

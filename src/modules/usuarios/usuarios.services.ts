@@ -36,7 +36,7 @@ export const actualizarUsuarioByIdService = async (id: any, datos: any): Promise
 
         if (usuario.length === 0) {
 
-            return getRespuestaCommon(true, 422, `No existe en a base de datos id -${id}`, null);
+            return getRespuestaCommon(true, 422, `No existe en la base de datos id -${id}`, null);
 
         };
 
@@ -126,15 +126,26 @@ export const deleteUsuarioByIdService = async (id: any): Promise<IRespuestaFunci
 
 
 
-export const actualizarPasswordUsuarioService = async (email: string, password: string): Promise<IRespuestaFuncion> => {
+export const actualizarPasswordUsuarioService = async (email: string, password: string, passwordAntigua: string): Promise<IRespuestaFuncion> => {
 
 
     try {
+
+
         const [usuario] = await UsuariosEntity.findBy({ email: email });
 
-        if (!usuario) {
-            return getRespuestaCommon(false, 422, `El usuario con documento ${email} no existe en la base de datos`);
 
+        if (!usuario) {
+            return getRespuestaCommon(false, 422, `El usuario con el correo ${email} no existe en la base de datos`);
+
+        };
+
+        const validarPassword = bcryptjs.compareSync(passwordAntigua, usuario.password);
+
+
+        if (!validarPassword) {
+            console.log("usuario passoword db", usuario.password, "<password body", passwordAntigua);
+            return getRespuestaCommon(false, 422, "contraseña antigua es incorrecta", null);
         };
 
         const salt = bcryptjs.genSaltSync();
@@ -144,6 +155,7 @@ export const actualizarPasswordUsuarioService = async (email: string, password: 
         const actualizado = await UsuariosEntity.update({ email: email }, { password: nuevaPassword })
 
         if (!actualizado) {
+
             return getRespuestaCommon(false, 422, "No se logro actualizar la contraseña");
         };
 
@@ -157,3 +169,4 @@ export const actualizarPasswordUsuarioService = async (email: string, password: 
     }
 
 };
+

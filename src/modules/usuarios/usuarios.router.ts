@@ -21,7 +21,7 @@ router.put("/:id", [
     joiValidateMiddleware(schemaActualizarUsuario)
 ], actualizarUsuarioById);
 
-// router.put("/actualizar-password/:email", [joiValidateMiddleware(schemaActualizarPasswordUsuario)], actualizarPassword);
+router.put("/actualizar-password/:email", [joiValidateMiddleware(schemaActualizarPasswordUsuario)], actualizarPassword);
 
 router.get("/:id", [], obtenerUsuarioById);
 router.get("/", [], obtenerUsuarios);

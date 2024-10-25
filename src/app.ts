@@ -4,6 +4,7 @@ import express from "express";
 import misRutas from "./router";
 import morgan from "morgan";
 import { AppDataSource } from "./config/data-source";
+const cors = require('cors');
 
 // mysql://root:jWWDmECbwfmJUBKfcWFmwtSxsfyZpgsu@autorack.proxy.rlwy.net:13901/railway
 
@@ -42,6 +43,7 @@ export class Server {
         //TODO: IMPORTANTE PARA LEER DATA DESDE REQ.DATA COMO JSON
         this.app.use(express.json({ limit: '2000mb' }))
         this.app.use(morgan('dev'))
+        this.app.use(cors());
 
     }
 

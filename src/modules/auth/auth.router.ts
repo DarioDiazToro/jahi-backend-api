@@ -9,7 +9,7 @@ import { schemaLogin } from "./auth.schemas";
 const router = Router();
 
 
-router.post("/login", [joiValidateMiddleware(schemaLogin)], login)
+router.post("/login", [joiValidateMiddleware(schemaLogin)], login);
 
 
 export default router;

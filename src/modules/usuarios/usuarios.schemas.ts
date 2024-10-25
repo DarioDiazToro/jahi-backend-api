@@ -7,8 +7,6 @@ export const schemaCrearUsuario = Joi.object({
     activo: Joi.boolean().required(),
     password: Joi.string().required(),
     email: Joi.string().email().required(),
-    genero: Joi.string().required(),
-
 });
 
 export const schemaActualizarUsuario = Joi.object({
@@ -17,10 +15,12 @@ export const schemaActualizarUsuario = Joi.object({
     activo: Joi.boolean(),
     password: Joi.string().optional(),
     email: Joi.string().email().required(),
-    genero: Joi.string().required()
+
 
 });
 
 export const schemaActualizarPasswordUsuario = Joi.object({
-    password: Joi.string().required(),
+    passwordAntigua: Joi.string().required(),
+    passwordNueva: Joi.string().required(),
+    confirmarPasswordNueva: Joi.string().required()
 });

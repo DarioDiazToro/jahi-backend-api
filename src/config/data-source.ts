@@ -1,6 +1,9 @@
 
 import { DataSource } from "typeorm";
 import { UsuariosEntity } from "../models/usuario";
+import { EjerciciosEntity } from "../models/ejercicio";
+
+
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -11,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB || "jahi",
     synchronize: true,
     logging: false,
-    entities: [UsuariosEntity],
+    entities: [UsuariosEntity, EjerciciosEntity],
     subscribers: [],
     migrations: [],
 });

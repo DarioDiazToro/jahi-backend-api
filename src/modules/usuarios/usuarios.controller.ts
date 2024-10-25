@@ -83,10 +83,13 @@ export const eliminarUsuarioById = async (req: Request, res: Response) => {
 export const actualizarPassword = async (req: Request, res: Response) => {
 
     try {
-        const { documento } = req.params;
-        const { password } = req.body;
+        const { email } = req.params;
+        const { passwordNueva, passwordAntigua, confirmarPasswordNueva } = req.body;
 
-        const answer = await actualizarPasswordUsuarioService(documento, password);
+        if (passwordNueva != confirmarPasswordNueva) {
+            return respuesta(res, 422, false, `la contraseña ${confirmarPasswordNueva} no coincide con con la contraseña nueva ${passwordNueva}`, null)
+        }
+        const answer = await actualizarPasswordUsuarioService(email, passwordNueva, passwordAntigua);
         return respuesta(res, answer.code, answer.success, answer.message, answer.data);
 
     } catch (error: any) {

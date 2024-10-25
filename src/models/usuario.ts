@@ -21,7 +21,6 @@ export class UsuariosEntity extends BaseEntity {
     @Column({ type: "boolean" })
     activo!: boolean
 
-    @Column({ type: "varchar", length: 50 })
-    genero!: string
 };
+
 
