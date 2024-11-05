@@ -1,5 +1,5 @@
 import { transporter } from "../../config/mailer";
-import { generarJWT } from "../../helpers/generar-jwt"
+import { generarJWT } from "../../helpers/generarJWT";
 import { UsuariosEntity } from "../../models/usuario";
 import bcryptjs from "bcryptjs";
 
