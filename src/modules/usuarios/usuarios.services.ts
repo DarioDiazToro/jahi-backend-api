@@ -126,13 +126,15 @@ export const deleteUsuarioByIdService = async (id: any): Promise<IRespuestaFunci
 
 
 
-export const actualizarPasswordUsuarioService = async (email: string, password: string, passwordAntigua: string): Promise<IRespuestaFuncion> => {
+export const actualizarPasswordUsuarioService = async (email: string, datos?: any): Promise<IRespuestaFuncion> => {
 
 
     try {
 
+        const { passwordAntigua, passwordNueva, confirmarPasswordNueva } = datos;
 
         const [usuario] = await UsuariosEntity.findBy({ email: email });
+
 
 
         if (!usuario) {
@@ -144,13 +146,16 @@ export const actualizarPasswordUsuarioService = async (email: string, password: 
 
 
         if (!validarPassword) {
-            console.log("usuario passoword db", usuario.password, "<password body", passwordAntigua);
+
             return getRespuestaCommon(false, 422, "contraseña antigua es incorrecta", null);
         };
 
+        if (passwordNueva != confirmarPasswordNueva) {
+            return getRespuestaCommon(false, 422, `confirmar contraseña no coincide con con la contraseña nueva ${passwordNueva}`, null)
+        }
         const salt = bcryptjs.genSaltSync();
 
-        const nuevaPassword = bcryptjs.hashSync(password, salt);
+        const nuevaPassword = bcryptjs.hashSync(passwordNueva, salt);
 
         const actualizado = await UsuariosEntity.update({ email: email }, { password: nuevaPassword })
 
@@ -169,4 +174,33 @@ export const actualizarPasswordUsuarioService = async (email: string, password: 
     }
 
 };
+
+export const emailExisteService = async (email: string): Promise<IRespuestaFuncion> => {
+
+
+    try {
+
+
+        const [usuario] = await UsuariosEntity.findBy({ email: email });
+
+
+        if (!usuario) {
+            return getRespuestaCommon(false, 422, `El usuario con el correo ${email} no existe en la base de datos`);
+
+        };
+
+        return getRespuestaCommon(true, 200, `El usuario ${email} se econtro con exito! `);
+
+    } catch (error: any) {
+        console.error("Error existeEmailSerivice ====>", error, error.message);
+
+        return getRespuestaCommon(true, 422, "no se logro encontrar el email", null, { detailError: error.message });
+
+    }
+
+};
+
+
+
+
 

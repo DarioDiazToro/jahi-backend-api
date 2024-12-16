@@ -6,7 +6,7 @@ import Jwt  from "jsonwebtoken";
 
     return new Promise((resolve,reject)=>{
      const payolad = {uid};
-   Jwt.sign(payolad,process.env.SECRETARYPRIVATEKEY!,{
+   Jwt.sign(payolad,process.env.SECRETORPRIVATEKEY!,{
         expiresIn:'4h',
      },(err,token)=>{
         if(err){

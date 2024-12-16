@@ -34,7 +34,6 @@ export const crearEjercicioService = async (datos: any): Promise<IRespuestaFunci
             return getRespuestaCommon(false, 422, "No fue posible subir la imagen", null);
         }
 
-        console.log(ejercicio);
         ejercicio.imagen_entrenamiento = ruta;
 
 

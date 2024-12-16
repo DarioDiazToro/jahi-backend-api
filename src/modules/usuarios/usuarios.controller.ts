@@ -1,6 +1,6 @@
 
 import { Request, Response, } from "express";
-import { actualizarPasswordUsuarioService, actualizarUsuarioByIdService, crearUsuarioService, deleteUsuarioByIdService, obtenerUsuarioByIdService, obtenerUsuariosService } from "./usuarios.services";
+import { actualizarPasswordUsuarioService, actualizarUsuarioByIdService, crearUsuarioService, deleteUsuarioByIdService, emailExisteService, obtenerUsuarioByIdService, obtenerUsuariosService } from "./usuarios.services";
 import { respuesta } from "../../common/response.common";
 
 
@@ -84,12 +84,10 @@ export const actualizarPassword = async (req: Request, res: Response) => {
 
     try {
         const { email } = req.params;
-        const { passwordNueva, passwordAntigua, confirmarPasswordNueva } = req.body;
+        // const { passwordNueva, passwordAntigua, confirmarPasswordNueva } = req.body;
+        const { ...data } = req.body;
 
-        if (passwordNueva != confirmarPasswordNueva) {
-            return respuesta(res, 422, false, `la contraseña ${confirmarPasswordNueva} no coincide con con la contraseña nueva ${passwordNueva}`, null)
-        }
-        const answer = await actualizarPasswordUsuarioService(email, passwordNueva, passwordAntigua);
+        const answer = await actualizarPasswordUsuarioService(email, data);
         return respuesta(res, answer.code, answer.success, answer.message, answer.data);
 
     } catch (error: any) {
@@ -97,3 +95,18 @@ export const actualizarPassword = async (req: Request, res: Response) => {
     }
 };
 
+
+export const emailExiste = async (req: Request, res: Response) => {
+
+    try {
+        const { email } = req.params;
+
+
+        const answer = await emailExisteService(email);
+
+        return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+
+    } catch (error: any) {
+        return respuesta(res, 422, false, `Error inesperado ${error.message}`, null);
+    }
+};

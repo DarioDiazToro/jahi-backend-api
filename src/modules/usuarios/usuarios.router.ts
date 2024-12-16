@@ -2,9 +2,10 @@
 import { Router } from "express";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
 
-import { actualizarPassword, actualizarUsuarioById, crearUsuario, eliminarUsuarioById, obtenerUsuarioById, obtenerUsuarios, } from "./usuarios.controller";
+import { actualizarPassword, actualizarUsuarioById, crearUsuario, eliminarUsuarioById, emailExiste, obtenerUsuarioById, obtenerUsuarios, } from "./usuarios.controller";
 import { schemaActualizarUsuario, schemaCrearUsuario, schemaActualizarPasswordUsuario } from "./usuarios.schemas";
-import { validarJWT } from "../../middlewares/validar-jwt";
+
+
 
 
 
@@ -25,6 +26,8 @@ router.put("/actualizar-password/:email", [joiValidateMiddleware(schemaActualiza
 
 router.get("/:id", [], obtenerUsuarioById);
 router.get("/", [], obtenerUsuarios);
+router.get("/email-existe/:email", [], emailExiste);
+
 
 
 router.delete("/:id", [], eliminarUsuarioById);
